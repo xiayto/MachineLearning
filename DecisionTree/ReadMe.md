@@ -12,5 +12,5 @@
 ### 量化纯度
 三个公式都是越大越纯
 * Gini系数：<img src="http://chart.googleapis.com/chart?cht=tx&chl=Gini=1-\sum^n_{i=1}P(i)^2" style="border:none;">
-* 墒：<img src="http://chart.googleapis.com/chart?cht=tx&chl= H=-\sum^n_{i=1}P(i)log_2(P(i))" style="border:none;">
+* 墒：<img src="http://chart.googleapis.com/chart?cht=tx&chl=H=-\sum^n_{i=1}P(i)log_2(P(i))" style="border:none;">
 * 错误率：<img src="http://chart.googleapis.com/chart?cht=tx&chl=E=1-max_{i=1}^n\{P(i)\}" style="border:none;">
