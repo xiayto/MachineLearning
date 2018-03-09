@@ -17,7 +17,7 @@
 
 ## 梯度下降
 
-代码：GradientDescent.py
+代码：GradientDescent.py  
 当函数是凸函数的时候，向导数方向的反方向移动（也就是学习率 * 导数）可以收敛到最小值。
 
 ## 逻辑回归
