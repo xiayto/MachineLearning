@@ -1,40 +1,41 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib 
+from numpy import *
+from sklearn import datasets
+from sklearn.model_selection import train_test_split 
 
-# 原函数
-def f(x):
-    return x ** 2
+# 用sklearn的癌症数据集做测试
+loaded_data = datasets.load_breast_cancer()
+x = loaded_data.data
+y = loaded_data.target
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
 
-# 导数
-def h(t):
-    return 2 * t
+# sigmoid函数
+def sigmoid(inX):
+    return 1.0/(1+exp(-inX))
 
-X = []
-Y = []
+# 梯度下降法得到逻辑回归的权重参数
+def getWeight(trainData, labelData, epoch, alpha):
+    x = mat(trainData)
+    y = mat(labelData).transpose()
+    m, n = shape(x)
+    weight = ones((n, 1))
+    for i in range(epoch):
+        h = sigmoid(x * weight)
+        error = y - h
+        weight = weight + alpha*x.transpose()*error
+    return weight
 
-x = 2
-step = 0.8
-f_change = f(x)
-f_current = f(x)
-X.append(x)
-Y.append(f_current)
-while f_change > 1e-10:
-    x = x - step * h(x)
-    tmp = f(x)
-    f_change = np.abs(f_current - tmp)
-    f_current = tmp
-    X.append(x)
-    Y.append(f_current)
+# 测试准确率
+def getWeight(trainData, labelData, epoch, alpha):
+    x = mat(trainData)
+    y = mat(labelData).transpose()
+    m, n = shape(x)
+    weight = ones((n, 1))
+    for i in range(epoch):
+        h = sigmoid(x * weight)
+        error = y - h
+        weight = weight + alpha*x.transpose()*error
+    return weight
 
-print("最终结果：",(x, f_current))
-
-fig = plt.figure()
-X2 = np.arange(-2.1, 2.15, 0.05)
-Y2 = X2 ** 2
-
-plt.plot(X2, Y2, '-', color='#666666', linewidth = 2)
-plt.plot(X, Y, 'bo--')
-plt.title(u'$y=x^2$')
-
-plt.show()
+weight = getWeight(x_train, y_train, 1000, 0.1)
+evaluation(x_test, y_test, weight)
+# accurate: 0.9298245614035088
