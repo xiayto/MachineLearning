@@ -71,4 +71,18 @@ class MultinomialNB(object):
                 label = self._predict_single_sample(X[i])
                 labels.append(label)
         return labels
-// -------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+# 对于连续型的特征，假设它服从高斯分布得到概率
+class GaussianNB(MultinomialNB):
+    # 获得每个特征的均值和方差
+    def _calculate_feature_prob(self,feature):
+        mu = np.mean(feature)
+        sigma = np.std(feature)
+        return (mu,sigma)
+    
+    # 假设特征服从高斯分布，获得概率密度函数
+    def _prob_gaussian(self,mu,sigma,x):
+        return ( 1.0/(sigma * np.sqrt(2 * np.pi)) * np.exp( - (x - mu)**2 / (2 * sigma**2)) )
+    
+    def _get_xj_prob(self,mu_sigma,target_value):
+        return self._prob_gaussian(mu_sigma[0],mu_sigma[1],target_value)
